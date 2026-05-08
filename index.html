@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZHM BUSINESS SARL | Le Distributeur Leader des Produits Alimentaires</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --gold:#C9921A;--gold-light:#F5C842;--gold-dark:#8B6110;
+    --green:#1C3A24;--green-mid:#2D5A3A;--green-light:#4A7C59;
+    --cream:#FAF6ED;--cream-dark:#F0E8D0;
+    --text-dark:#1A1208;--text-mid:#4A3A1C;--text-light:#7A6540;
+    --white:#FFFFFF;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text-dark);overflow-x:hidden}
+
+  /* TOP BAR */
+  .topbar{background:var(--green);color:rgba(255,255,255,0.85);font-size:13px;padding:8px 0}
+  .topbar-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .topbar a{color:rgba(255,255,255,0.85);text-decoration:none;transition:color .2s}
+  .topbar a:hover{color:var(--gold-light)}
+  .topbar-left,.topbar-right{display:flex;align-items:center;gap:1.5rem}
+  .topbar-icon{display:inline-flex;align-items:center;gap:6px}
+
+  /* NAVBAR */
+  nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--cream-dark);box-shadow:0 2px 20px rgba(0,0,0,0.06)}
+  .nav-inner{max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;height:70px}
+  .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+  .logo-badge{width:46px;height:46px;background:var(--green);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:var(--gold-light);font-size:15px;letter-spacing:1px}
+  .logo-text{display:flex;flex-direction:column}
+  .logo-name{font-family:'Playfair Display',serif;font-weight:700;color:var(--green);font-size:18px;line-height:1.1}
+  .logo-sub{font-size:10px;color:var(--text-light);text-transform:uppercase;letter-spacing:2px}
+  .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+  .nav-links a{text-decoration:none;color:var(--text-mid);font-size:14px;font-weight:500;transition:color .2s;position:relative}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--gold);transition:width .3s}
+  .nav-links a:hover{color:var(--gold-dark)}
+  .nav-links a:hover::after{width:100%}
+  .nav-cta{background:var(--green);color:var(--white)!important;padding:10px 22px;border-radius:8px;transition:background .2s!important}
+  .nav-cta::after{display:none!important}
+  .nav-cta:hover{background:var(--green-mid)!important;color:var(--white)!important}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+  .hamburger span{display:block;width:24px;height:2px;background:var(--green);border-radius:2px;transition:all .3s}
+  .mobile-menu{display:none;position:absolute;top:70px;left:0;right:0;background:var(--white);border-top:1px solid var(--cream-dark);padding:1rem 2rem;flex-direction:column;gap:1rem}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{text-decoration:none;color:var(--text-mid);font-size:15px;font-weight:500;padding:8px 0;border-bottom:1px solid var(--cream-dark)}
+
+  /* HERO */
+  .hero{min-height:90vh;background:var(--green);position:relative;display:flex;align-items:center;overflow:hidden}
+  .hero-pattern{position:absolute;inset:0;opacity:0.07;background-image:radial-gradient(circle at 20% 50%, var(--gold-light) 1px, transparent 1px),radial-gradient(circle at 80% 20%, var(--gold-light) 1px, transparent 1px);background-size:60px 60px}
+  .hero-glow{position:absolute;top:-200px;right:-200px;width:600px;height:600px;background:radial-gradient(circle, rgba(201,146,26,0.15) 0%, transparent 70%);pointer-events:none}
+  .hero-inner{max-width:1200px;margin:0 auto;padding:6rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;position:relative;z-index:1}
+  .hero-label{display:inline-flex;align-items:center;gap:8px;background:rgba(201,146,26,0.15);border:1px solid rgba(201,146,26,0.3);color:var(--gold-light);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:1.5rem}
+  .hero-label::before{content:'';width:6px;height:6px;background:var(--gold-light);border-radius:50%;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4vw,3.8rem);font-weight:700;color:var(--white);line-height:1.15;margin-bottom:1.5rem}
+  .hero h1 span{color:var(--gold-light)}
+  .hero-desc{color:rgba(255,255,255,0.72);font-size:16px;line-height:1.8;margin-bottom:2.5rem;max-width:480px}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:var(--text-dark);font-weight:600;font-size:14px;padding:14px 28px;border-radius:10px;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+  .btn-primary:hover{background:var(--gold-light);transform:translateY(-1px)}
+  .btn-outline{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--white);font-weight:500;font-size:14px;padding:13px 28px;border-radius:10px;text-decoration:none;border:1px solid rgba(255,255,255,0.3);transition:all .2s}
+  .btn-outline:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.5)}
+  .hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .hero-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:1.5rem;backdrop-filter:blur(10px)}
+  .hero-card-icon{width:44px;height:44px;background:rgba(201,146,26,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;font-size:22px}
+  .hero-card h3{font-size:14px;font-weight:600;color:var(--white);margin-bottom:4px}
+  .hero-card p{font-size:12px;color:rgba(255,255,255,0.55);line-height:1.5}
+  .hero-card.accent{background:rgba(201,146,26,0.12);border-color:rgba(201,146,26,0.2)}
+  .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(255,255,255,0.1)}
+  .stat{text-align:center}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold-light)}
+  .stat-lbl{font-size:11px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+
+  /* TICKER */
+  .ticker{background:var(--gold);padding:12px 0;overflow:hidden}
+  .ticker-track{display:flex;gap:3rem;animation:ticker 25s linear infinite;width:max-content}
+  @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .ticker-item{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-dark);white-space:nowrap}
+  .ticker-dot{width:4px;height:4px;background:var(--text-dark);border-radius:50%;opacity:0.4}
+
+  /* SECTION LAYOUT */
+  section{padding:5rem 0}
+  .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .section-tag{display:inline-block;background:var(--cream-dark);color:var(--gold-dark);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:1rem}
+  .section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--green);line-height:1.25;margin-bottom:1rem}
+  .section-desc{font-size:16px;color:var(--text-light);line-height:1.8;max-width:560px}
+
+  /* ABOUT */
+  #about{background:var(--white)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+  .about-image-wrap{position:relative}
+  .about-image-main{background:var(--green);border-radius:20px;height:420px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .about-image-main img{width:100%;height:100%;object-fit:cover;border-radius:20px}
+  .about-badge{position:absolute;bottom:-20px;right:-20px;background:var(--gold);color:var(--text-dark);padding:18px 24px;border-radius:14px;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,0.12)}
+  .about-badge-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;line-height:1}
+  .about-badge-lbl{font-size:11px;font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+  .about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem}
+  .feature-item{display:flex;align-items:flex-start;gap:12px;padding:1rem;background:var(--cream);border-radius:10px}
+  .feature-icon{width:36px;height:36px;min-width:36px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .feature-item h4{font-size:13px;font-weight:600;color:var(--green);margin-bottom:2px}
+  .feature-item p{font-size:12px;color:var(--text-light)}
+
+  /* PARTNERS */
+  #partners{background:var(--cream)}
+  .partners-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+  .partner-card{background:var(--white);border-radius:16px;padding:2rem 1.5rem;text-align:center;border:1px solid var(--cream-dark);transition:all .3s;cursor:default}
+  .partner-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.08)}
+  .partner-icon{width:64px;height:64px;margin:0 auto 1rem;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px}
+  .partner-icon.green{background:rgba(28,58,36,0.08)}
+  .partner-icon.gold{background:rgba(201,146,26,0.1)}
+  .partner-card h3{font-size:16px;font-weight:600;color:var(--green);margin-bottom:6px}
+  .partner-card p{font-size:13px;color:var(--text-light);line-height:1.6}
+
+  /* TEAM */
+  #team{background:var(--green)}
+  #team .section-tag{background:rgba(201,146,26,0.15);color:var(--gold-light)}
+  #team .section-title{color:var(--white)}
+  #team .section-desc{color:rgba(255,255,255,0.65)}
+  .team-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:2.5rem;display:flex;align-items:center;gap:2.5rem;max-width:680px;margin-top:3rem}
+  .team-avatar{width:100px;height:100px;min-width:100px;border-radius:50%;background:rgba(201,146,26,0.2);border:3px solid rgba(201,146,26,0.4);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--gold-light)}
+  .team-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--white);margin-bottom:4px}
+  .team-role{display:inline-block;background:rgba(201,146,26,0.15);color:var(--gold-light);font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-radius:100px;margin-bottom:1rem}
+  .team-desc{color:rgba(255,255,255,0.65);font-size:14px;line-height:1.8}
+
+  /* CTA */
+  .cta-section{background:var(--cream-dark);padding:5rem 0}
+  .cta-box{background:var(--green);border-radius:24px;padding:4rem;text-align:center;position:relative;overflow:hidden}
+  .cta-box::before{content:'';position:absolute;top:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle, rgba(201,146,26,0.15) 0%, transparent 70%)}
+  .cta-box h2{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--white);margin-bottom:1rem;position:relative}
+  .cta-box p{color:rgba(255,255,255,0.65);font-size:16px;margin-bottom:2.5rem;position:relative}
+  .cta-actions{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative}
+  .btn-whatsapp{display:inline-flex;align-items:center;gap:8px;background:#25D366;color:var(--white);font-weight:600;font-size:14px;padding:14px 28px;border-radius:10px;text-decoration:none;transition:all .2s}
+  .btn-whatsapp:hover{background:#1ebe5a;transform:translateY(-1px)}
+
+  /* FOOTER */
+  footer{background:var(--text-dark);color:rgba(255,255,255,0.7);padding:4rem 0 0}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:3rem;padding-bottom:3rem;border-bottom:1px solid rgba(255,255,255,0.08)}
+  .footer-brand p{font-size:14px;line-height:1.8;color:rgba(255,255,255,0.55);margin-top:1rem;max-width:280px}
+  .footer-social{display:flex;gap:10px;margin-top:1.5rem}
+  .social-btn{width:36px;height:36px;background:rgba(255,255,255,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);text-decoration:none;font-size:15px;transition:all .2s;border:1px solid rgba(255,255,255,0.08)}
+  .social-btn:hover{background:var(--gold);color:var(--text-dark);border-color:var(--gold)}
+  .footer-col h4{font-size:12px;font-weight:600;color:var(--white);letter-spacing:2px;text-transform:uppercase;margin-bottom:1.5rem}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .footer-links a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:14px;transition:color .2s}
+  .footer-links a:hover{color:var(--gold-light)}
+  .contact-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:1rem;font-size:14px;color:rgba(255,255,255,0.55)}
+  .contact-item svg{min-width:16px;margin-top:2px;color:var(--gold)}
+  .newsletter-input{display:flex;gap:8px;margin-top:1rem}
+  .newsletter-input input{flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:var(--white);padding:10px 14px;border-radius:8px;font-size:13px;outline:none}
+  .newsletter-input input::placeholder{color:rgba(255,255,255,0.3)}
+  .newsletter-input button{background:var(--gold);color:var(--text-dark);border:none;padding:10px 16px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;transition:background .2s}
+  .newsletter-input button:hover{background:var(--gold-light)}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding:1.5rem 0;font-size:13px;color:rgba(255,255,255,0.35);flex-wrap:wrap;gap:8px}
+  .footer-bottom a{color:rgba(255,255,255,0.45);text-decoration:none}
+
+  /* WHATSAPP FLOAT */
+  .wa-float{position:fixed;bottom:2rem;right:2rem;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);z-index:999;transition:transform .2s}
+  .wa-float:hover{transform:scale(1.1)}
+  .wa-float svg{width:28px;height:28px;fill:white}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .hero-inner{grid-template-columns:1fr;gap:3rem}
+    .hero-visual{display:none}
+    .about-grid{grid-template-columns:1fr}
+    .about-image-wrap{display:none}
+    .partners-grid{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    nav .nav-links{display:none}
+    .hamburger{display:flex}
+  }
+  @media(max-width:600px){
+    .partners-grid{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr}
+    .topbar-left{display:none}
+    .stats-row{grid-template-columns:1fr}
+    .about-features{grid-template-columns:1fr}
+    .team-card{flex-direction:column;text-align:center}
+    .cta-box{padding:2.5rem 1.5rem}
+    .cta-box h2{font-size:1.8rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <a href="mailto:zhmbusiness.sarl@gmail.com" class="topbar-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        zhmbusiness.sarl@gmail.com
+      </a>
+    </div>
+    <div class="topbar-right">
+      <a href="tel:0602226951" class="topbar-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.36 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        0602226951
+      </a>
+      <a href="tel:0605801615" class="topbar-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.36 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        0605801615
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-badge">ZHM</div>
+      <div class="logo-text">
+        <span class="logo-name">ZHM Business</span>
+        <span class="logo-sub">SARL · Distribution</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="#about">À Propos</a></li>
+      <li><a href="#partners">Nos Partenaires</a></li>
+      <li><a href="#team">Équipe</a></li>
+      <li><a href="#contact" class="nav-cta">Contactez-nous</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#hero" onclick="toggleMenu()">Accueil</a>
+    <a href="#about" onclick="toggleMenu()">À Propos</a>
+    <a href="#partners" onclick="toggleMenu()">Nos Partenaires</a>
+    <a href="#team" onclick="toggleMenu()">Équipe</a>
+    <a href="#contact" onclick="toggleMenu()">Contactez-nous</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-label">Distribution Alimentaire · Maroc</div>
+      <h1>Le Partenaire de<br><span>Confiance</span> pour vos<br>Produits Alimentaires</h1>
+      <p class="hero-desc">ZHM BUSINESS SARL est le distributeur leader en gros de produits alimentaires de qualité, au service des cafés, hôtels et snacks du Maroc.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.36 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          Contactez-nous
+        </a>
+        <a href="https://wa.me/212605801615" class="btn-outline" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-lbl">Qualité Garantie</div></div>
+        <div class="stat"><div class="stat-num">24h</div><div class="stat-lbl">Livraison Rapide</div></div>
+        <div class="stat"><div class="stat-num">B2B</div><div class="stat-lbl">Service Pro</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card accent">
+        <div class="hero-card-icon">☕</div>
+        <h3>Cafés</h3>
+        <p>Fournitures complètes pour cafétérias et établissements</p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon">🏨</div>
+        <h3>Hôtels</h3>
+        <p>Produits de qualité supérieure pour l'hôtellerie</p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-icon">🍽️</div>
+        <h3>Snacks</h3>
+        <p>Approvisionnement fiable pour la restauration rapide</p>
+      </div>
+      <div class="hero-card accent">
+        <div class="hero-card-icon">🛒</div>
+        <h3>Marchés</h3>
+        <p>Distribution en gros pour commerces et épiceries</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">🥐 Produits Alimentaires</div><div class="ticker-dot"></div>
+    <div class="ticker-item">☕ Cafés & Restaurants</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🏨 Hôtels & Resorts</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🛒 Distribution en Gros</div><div class="ticker-dot"></div>
+    <div class="ticker-item">📦 Livraison Rapide</div><div class="ticker-dot"></div>
+    <div class="ticker-item">✅ Qualité Irréprochable</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🤝 Service Fiable</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🇲🇦 Maroc · Distribution Leader</div><div class="ticker-dot"></div>
+    <!-- repeat -->
+    <div class="ticker-item">🥐 Produits Alimentaires</div><div class="ticker-dot"></div>
+    <div class="ticker-item">☕ Cafés & Restaurants</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🏨 Hôtels & Resorts</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🛒 Distribution en Gros</div><div class="ticker-dot"></div>
+    <div class="ticker-item">📦 Livraison Rapide</div><div class="ticker-dot"></div>
+    <div class="ticker-item">✅ Qualité Irréprochable</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🤝 Service Fiable</div><div class="ticker-dot"></div>
+    <div class="ticker-item">🇲🇦 Maroc · Distribution Leader</div><div class="ticker-dot"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image-wrap">
+        <div class="about-image-main" style="background:linear-gradient(135deg,#1C3A24,#2D5A3A);padding:2rem;justify-content:center;flex-direction:column;text-align:center">
+          <div style="font-size:5rem;margin-bottom:1rem">🏢</div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#F5C842;margin-bottom:0.5rem">ZHM BUSINESS</div>
+          <div style="color:rgba(255,255,255,0.6);font-size:0.9rem">SARL · Distribution Alimentaire</div>
+        </div>
+        <div class="about-badge">
+          <div class="about-badge-num">N°1</div>
+          <div class="about-badge-lbl">Distributeur<br>de la région</div>
+        </div>
+      </div>
+      <div>
+        <div class="section-tag">À Propos de Nous</div>
+        <h2 class="section-title">Leader de la Distribution<br>Alimentaire au Maroc</h2>
+        <p class="section-desc" style="margin-bottom:1.5rem">ZHM BUSINESS Sarl est une entreprise leader dans la distribution de produits alimentaires en gros. Spécialisée dans la fourniture de produits de qualité destinés aux cafés, hôtels et snacks.</p>
+        <p style="font-size:15px;color:var(--text-light);line-height:1.8;margin-bottom:2rem">ZHM BUSINESS s'engage à offrir un service rapide et fiable pour répondre à tous les besoins professionnels de ses clients. L'entreprise met un point d'honneur à garantir la satisfaction de ses clients en offrant des produits d'une qualité irréprochable et un service client efficace.</p>
+        <div class="about-features">
+          <div class="feature-item">
+            <div class="feature-icon">⚡</div>
+            <div>
+              <h4>Livraison Rapide</h4>
+              <p>Approvisionnement en temps voulu pour votre activité</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🏆</div>
+            <div>
+              <h4>Qualité Supérieure</h4>
+              <p>Produits sélectionnés selon des critères stricts</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">🤝</div>
+            <div>
+              <h4>Service Professionnel</h4>
+              <p>Accompagnement dédié pour chaque client B2B</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💰</div>
+            <div>
+              <h4>Prix Compétitifs</h4>
+              <p>Tarifs avantageux en gros pour maximiser vos marges</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:2rem">
+          <a href="#contact" class="btn-primary" style="color:var(--text-dark)">En savoir plus →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section id="partners">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:1rem">
+      <div class="section-tag">Nos Partenaires</div>
+      <h2 class="section-title" style="margin:0 auto">Partenaire Privilégié des</h2>
+      <h2 class="section-title" style="margin:0 auto">Professionnels de la Restauration</h2>
+      <p class="section-desc" style="margin:1rem auto 0;text-align:center">Nous accompagnons les professionnels du secteur alimentaire avec des solutions adaptées à chaque type d'établissement.</p>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card">
+        <div class="partner-icon green">☕</div>
+        <h3>Cafés</h3>
+        <p>Fourniture complète en produits alimentaires, boissons et consommables pour cafétérias et établissements de café.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-icon gold">🏨</div>
+        <h3>Hôtels</h3>
+        <p>Approvisionnement en produits de haute qualité pour les cuisines et restaurants d'hôtels et établissements touristiques.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-icon green">🍽️</div>
+        <h3>Snacks & Restaurants</h3>
+        <p>Distribution régulière de produits alimentaires frais et secs pour la restauration rapide et les snacks.</p>
+      </div>
+      <div class="partner-card">
+        <div class="partner-icon gold">🛒</div>
+        <h3>Épiceries & Marchés</h3>
+        <p>Vente en gros pour les commerces de proximité, épiceries et grandes surfaces de la région.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="container">
+    <div class="section-tag">Notre Équipe</div>
+    <h2 class="section-title">La Direction</h2>
+    <p class="section-desc">Une équipe engagée à vous offrir le meilleur service de distribution alimentaire.</p>
+    <div class="team-card">
+      <div class="team-avatar">HZ</div>
+      <div>
+        <div class="team-name">Hamid Zahraoui</div>
+        <div class="team-role">Directeur Général</div>
+        <p class="team-desc">Directeur Général de ZHM BUSINESS SARL, il garantit l'approvisionnement en produits alimentaires de base pour hôtels, cafés et snacks, avec qualité, réactivité et fiabilité. Son engagement pour l'excellence guide chaque décision de l'entreprise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="contact">
+  <div class="container">
+    <div class="cta-box">
+      <h2>Contactez-nous Dès Maintenant !</h2>
+      <p>Prêt à bénéficier d'un service de distribution alimentaire de qualité ? Notre équipe est disponible pour répondre à toutes vos demandes.</p>
+      <div class="cta-actions">
+        <a href="tel:0602226951" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.36 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          0602226951
+        </a>
+        <a href="tel:0605801615" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.36 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          0605801615
+        </a>
+        <a href="https://wa.me/212605801615" class="btn-whatsapp" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:0.5rem">
+          <div style="width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:var(--text-dark);font-size:13px">ZHM</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-weight:700;color:white;font-size:17px">ZHM Business</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px">SARL</div>
+          </div>
+        </div>
+        <p>Le Distributeur Leader des Produits Alimentaires. Qualité, rapidité et fiabilité au service de vos établissements.</p>
+        <div class="footer-social">
+          <a href="https://web.facebook.com" class="social-btn" target="_blank" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com" class="social-btn" target="_blank" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://wa.me/212605801615" class="social-btn" target="_blank" aria-label="WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Liens Importants</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">→ Accueil</a></li>
+          <li><a href="#about">→ À Propos</a></li>
+          <li><a href="#partners">→ Nos Partenaires</a></li>
+          <li><a href="#team">→ Notre Équipe</a></li>
+          <li><a href="#contact">→ Contactez-nous</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contactez-nous</h4>
+        <div class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 12 19.79 19.79 0 0 1 1.08 3.36 2 2 0 0 1 3 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+          <div>0602226951<br>0605801615</div>
+        </div>
+        <div class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <div>zhmbusiness.sarl@gmail.com</div>
+        </div>
+        <div class="contact-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>Quartier Oulad Lahcen Bassou,<br>Route Aride</div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:1rem;line-height:1.7">Recevez nos offres et actualités directement dans votre boîte mail.</p>
+        <div class="newsletter-input">
+          <input type="email" placeholder="Votre email...">
+          <button onclick="alert('Merci pour votre inscription!')">OK</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ZHM Business SARL — Tous droits réservés</span>
+      <span>Développé avec ❤️ au Maroc</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/212605801615" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+
+<script>
+function toggleMenu(){
+  var m=document.getElementById('mobileMenu');
+  m.classList.toggle('open');
+}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}
+  })
+});
+</script>
+</body>
+</html>
